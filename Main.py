@@ -30,6 +30,7 @@ class APP(mysql):
         self.root = root
         self.options()
         self.frames()
+        self.label()
         self.root.mainloop()
 
     def options(self):
@@ -47,4 +48,9 @@ class APP(mysql):
         self.frame2.place(relx=0.5, rely=0.02, relheight=0.95, relwidth=0.48)
         self.centerline = Frame(self.root, background='Black')
         self.centerline.place(relx=0.49, rely=0.02, relheight=0.95, relwidth=0.03)
+
+    def label(self):
+        self.labelregister = Label(self.frame1, text='Registrar Aluno', fg='#1A2C56', font=('Aptos', 20))
+        self.labelregister.place(relx=0.4, rely=0.07, relwidth=0.9, relheight=0.9)
+
 APP()
