@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import font
 from PIL import Image, ImageTk
-from registerpage import placeholderentry
+from fonts_placeholers import *
 
 
 class studantcall():

@@ -1,40 +1,16 @@
 from tkinter import *
-from tkinter import PhotoImage
 from PIL import Image, ImageTk
 from tkinter import font
 import tkinter as Tk
-
-class placeholderentry(Tk.Entry):
-    def __init__(self, master=None, placeholder='Exemplo', corplaceholder='gray', *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-
-        self.placeholder = placeholder
-        self.corplaceholder = corplaceholder
-        self.cornormal = self['fg']
-
-        self.bind('<FocusIn>', self.aofocar)
-        self.bind('<FocusOut>', self.aosair)
-
-        self.putplaceholder()
-    
-    def putplaceholder(self):
-        self.insert(0, self.placeholder)
-        self['fg'] = self.corplaceholder
-
-    def aofocar(self, _):
-        if self.get() == self.placeholder:
-            self.delete(0, Tk.END)
-            self['fg'] = self.corplaceholder
-
-    def aosair(self, _):
-        if not self.get():
-            self.putplaceholder()
+from fonts_placeholers import *
+from banco_de_dados import bandodadosalunos
 
 
 
 class registerstudant():
     def __init__(self, root ,voltar):
         self.root = root
+        self.bd = bandodadosalunos()
         self.options2()
         self.frames()
         self.voltar = voltar
@@ -64,7 +40,7 @@ class registerstudant():
         self.imagembotao = ImageTk.PhotoImage(self.imagevoltarredimencionada)
         self.botaoalterarturma = Button(self.frame1, image=self.imagembotao, borderwidth=1, relief='flat', background='#e7ebfc', command=self.voltar)
         self.botaoalterarturma.place(relx=0.02, rely=0.02, relheight=0.1, relwidth=0.1)
-        self.botaoconfirmar = Button(self.frame1, text='Confirmar',fg='white', borderwidth=4, relief='groove', background='#2857bd', font=self.arialinterative)
+        self.botaoconfirmar = Button(self.frame1, text='Confirmar',fg='white', borderwidth=4, relief='groove', background='#2857bd', font=self.arialinterative, command=self.getstudant)
         self.botaoconfirmar.place(relx=0.6, rely=0.85, relheight=0.1, relwidth=0.37)
     
     def labels(self):
@@ -81,6 +57,12 @@ class registerstudant():
         self.entrytele.place(relx=0.05, rely=0.38, relheight=0.05, relwidth=0.5)
         self.entrytele2 = placeholderentry(self.frame1, placeholder='47999223296', font=('Arial', 10, 'bold'))
         self.entrytele2.place(relx=0.05, rely=0.45, relheight=0.05, relwidth=0.5)
+
+    def getstudant(self):
+        self.infoname = self.entrynome.get()
+        self.infotele = self.entrytele.get()
+        self.infotele2 = self.entrytele2.get()
+        self.bd.sendinfos(self.infoname, self.infotele, self.infotele2)
         
         
     

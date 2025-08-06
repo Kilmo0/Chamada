@@ -1,51 +1,20 @@
 from tkinter import *
 import tkinter as tk
-from tkinter import font
-import sqlite3
-from registerpage import registerstudant
+from studantregister import registerstudant
 from Registerclass import registerclass
 from chamadapage import studantcall
 from alternarturma import alterarturma
+from fonts_placeholers import *
 
 aluno = 'Kaua'
 root = tk.Tk()
 
 
-class relativefonts():
-    def relativeaptos(self, event):
-        largura = root.winfo_width()
-        newsize = max(8, int(largura/20))
-        self.reloptus.configure(size=newsize)
-    def relativearial(self, event):
-        largura = root.winfo_width()
-        newsize = max(4, int(largura / 70))
-        self.relbotaoresp.configure(size=newsize)
-
-
-class mysql():
-    def sqlconnect(self):
-        self.conn = sqlite3.connect(f'{aluno}.db')
-        self.cursor = self.conn.cursor()
-    def sqldisconnect(self):
-        self.conn.close()
-    def studantsactives(self):
-        self.sqlconnect()
-        self.conn.execute("""
-        CREATE TABLE IF NOT EXISTS aluno (
-            cod INTEGER PRIMARY KEY,
-            studant CHAR(40) NOT NULL,
-            phone INTEGER 
-        );""")
-        self.conn.commit(); print('Banco de Dados criado com sucesso')
-        self.sqldisconnect()
-
-
-    # def registersystem():
-
-
-class APP(mysql, relativefonts):
+class APP():
     def __init__(self):
         self.root = root
+        self.arialrel = arialrelative(self.root)
+        self.optusrel = optusrelative(self.root)
         self.options()
         self.frames()
         self.label()
@@ -57,12 +26,8 @@ class APP(mysql, relativefonts):
         self.root.geometry('800x600')
         self.root.minsize(width=800, height=600)
         self.root.maxsize(1920, 1080)
-
-        self.reloptus = font.Font(family='Aptos', size=20, weight='bold')
-        self.root.bind('<Configure>', self.relativeaptos)
-
-        self.relbotaoresp = font.Font(family='Arial', size=10, weight='bold')
-        self.root.bind('<Configure>', self.relativearial)
+        self.relbotaoresp = self.arialrel.options()
+        self.reloptus = self.optusrel.options()
         
 
     def frames(self):
@@ -94,6 +59,9 @@ class APP(mysql, relativefonts):
         self.botaoalterarturma = Button(self.frame2, text='Alterar Turma', background='#2857bd', fg='white', relief='groove',
                                          borderwidth=4, font=self.relbotaoresp, command=self.alterarturmafun)
         self.botaoalterarturma.place(relx=0.15, rely=0.42, relheight=0.1, relwidth=0.75)
+        self.botaoverificaraluno = Button(self.frame2, text='Verificar aluno', background='#2857bd', fg='white', relief='groove',
+                                          borderwidth=4, font=self.relbotaoresp)
+        self.botaoverificaraluno.place(relx=0.15, rely=0.54, relheight=0.1, relwidth=0.75)
 
     def ocultarframes(self):
         self.frame1.place_forget()

@@ -1,7 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from tkinter import font
-from registerpage import placeholderentry
+from fonts_placeholers import *
 
 
 class registerclass():

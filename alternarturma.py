@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import font
 from PIL import Image, ImageTk
+from fonts_placeholers import *
 
 class alterarturma():
     def __init__(self, root, voltar):
